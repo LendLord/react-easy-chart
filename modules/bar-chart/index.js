@@ -198,7 +198,7 @@ export default class BarChart extends React.Component {
     const group = root
       .append('g')
       .attr('class', 'x axis')
-      .attr('transform', `translate(${barWidth / 2}, ${h})`);
+      .attr('transform', `translate(${width / 2}, ${h})`);
 
     group
       .call(axis);
