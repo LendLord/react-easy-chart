@@ -193,7 +193,7 @@ export default class BarChart extends React.Component {
         .ticks(xTickNumber);
     }
 
-    barWidth = xType === 'text' ? x.bandwidth() : barWidth;
+    let width = xType === 'text' ? x.bandwidth() : barWidth;
 
     const group = root
       .append('g')
