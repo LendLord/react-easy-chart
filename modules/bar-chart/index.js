@@ -1,4 +1,4 @@
-import React from 'react';
+  import React from 'react';
 import { scaleBand as band, scaleLinear as linear } from 'd3-scale';
 import {
   event as lastEvent,
@@ -171,7 +171,8 @@ export default class BarChart extends React.Component {
       xType,
       tickTimeDisplayFormat,
       xTickNumber,
-      yAxisOrientRight
+      yAxisOrientRight,
+      barWidth
     } = this.props;
 
     const axis = svg.axis()
@@ -192,10 +193,12 @@ export default class BarChart extends React.Component {
         .ticks(xTickNumber);
     }
 
+    barWidth = xType === 'text' ? x.bandwidth() : barWidth;
+
     const group = root
       .append('g')
       .attr('class', 'x axis')
-      .attr('transform', `translate(0, ${h})`);
+      .attr('transform', `translate(${barWidth / 2}, ${h})`);
 
     group
       .call(axis);
@@ -222,7 +225,8 @@ export default class BarChart extends React.Component {
       axisLabels: { y: label },
       yTickNumber,
       yAxisOrientRight,
-      grid
+      grid,
+      barWidth
     } = this.props;
 
     const axis = svg.axis()
