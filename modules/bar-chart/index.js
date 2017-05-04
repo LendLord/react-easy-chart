@@ -360,6 +360,9 @@ export default class BarChart extends React.Component {
         ? x.bandwidth()
         : barWidth);
     const calculateH = (d) => h - y(d.y);
+    const calculateTextX = (d) => (calculateX(d) + (calculateW(d)/2)) - (d.y.toString().length * 4.5);
+    const calculateTextY = (d) => (y(d.y) - 8);
+    const dataLabel = (d) => (d.y);
 
     const mouseover = (d) => mouseOverHandler(d, lastEvent);
     const mouseout = (d) => mouseOutHandler(d, lastEvent);
@@ -370,8 +373,14 @@ export default class BarChart extends React.Component {
       .selectAll('rect') // '.bar'
       .data(data);
 
-    group
-      .enter()
+    const bar = group.enter().append('g');
+
+    bar
+      .append('text')
+      .attr('x', calculateTextX)
+      .attr('y', calculateTextY)
+      .text(dataLabel);
+    bar
       .append('rect')
       .attr('class', 'bar')
       .style('fill', calculateFill)
